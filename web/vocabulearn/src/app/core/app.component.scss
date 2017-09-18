@@ -1,0 +1,19 @@
+$primary-color: #393;
+$text-color-bright: white;
+
+.navbar {
+  background-color: $primary-color;
+
+  a {
+    color: $text-color-bright;
+  }
+}
+
+main {
+  margin: 40px;
+}
+
+h1 {
+  margin: 10px 0px
+}
+

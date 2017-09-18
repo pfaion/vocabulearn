@@ -1,0 +1,8 @@
+<h1>Courses</h1>
+<div class="list-group">
+    <a *ngFor="let course of courseList | async"
+       routerLink="/course/{{course.$key}}"
+       class="list-group-item list-group-item-action">
+        <span>{{course.title}}</span>
+    </a>
+</div>

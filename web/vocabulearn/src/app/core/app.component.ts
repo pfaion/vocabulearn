@@ -3,18 +3,13 @@ import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database
 
 @Component({
     selector: 'app-root',
-    template: `
-        <h1>Vocabulearn</h1>
-        <ul>
-            <li *ngFor="let item of items | async">
-                {{ item.title }}
-            </li>
-        </ul>
-    `,
-    styles: []
+    templateUrl: './app.component.html',
+    styleUrls: [ './app.component.scss' ]
 })
 export class AppComponent {
-    title = 'app';
+    site = {
+        title: "Vocabulearn"
+    };
 
     items: FirebaseListObservable<any[]>;
 
