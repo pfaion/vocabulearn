@@ -1,8 +1,13 @@
 <h1>Courses</h1>
 <div class="list-group">
-    <a *ngFor="let course of courseList | async"
+    <a *ngFor="let course of courseList"
        routerLink="/course/{{course.$key}}"
        class="list-group-item list-group-item-action">
         <span>{{course.title}}</span>
+    </a>
+    <a *ngIf="courseList"
+       class="list-group-item list-group-item-action"
+       routerLink="/addCourse">
+        <span class="glyphicon glyphicon-plus"></span>
     </a>
 </div>

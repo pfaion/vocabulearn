@@ -1,5 +1,4 @@
-$primary-color: #393;
-$text-color-bright: white;
+@import '../../variables';
 
 .navbar {
   background-color: $primary-color;

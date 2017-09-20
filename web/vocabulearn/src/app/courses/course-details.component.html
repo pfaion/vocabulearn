@@ -1,0 +1,19 @@
+<div *ngIf="course" class="form-horizontal">
+    <div class="form-group col-lg-10">
+        <label for="inputCourseTitle" class="col-lg-2 col-form-label">Titel</label>
+        <input [(ngModel)]="course.title" id="inputCourseTitle" placeholder="Title" class="col-lg-10 form-control"/>
+    </div>
+    <div class="form-group col-lg-10">
+        <label for="inputCourseLanguage" class="col-lg-2 col-form-label">Language</label>
+        <input [(ngModel)]="course.language" id="inputCourseLanguage" placeholder="Language" class="col-lg-10 form-control"/>
+    </div>
+    <div class="form-group"></div>
+    <div class="form-group col-lg-10">
+        <div class="col-lg-offset-2">
+            <button type="reset" class="btn btn-default" (click)="goBack()">Back</button>
+            <button *ngIf="mode == modes.EDIT" type="submit" class="btn btn-primary" (click)="save()">Save</button>
+            <button *ngIf="mode == modes.EDIT" type="submit" class="btn btn-danger" (click)="delete()">Delete</button>
+            <button *ngIf="mode == modes.ADD" type="submit" class="btn btn-primary" (click)="add()">Add</button>
+        </div>
+    </div>
+</div>

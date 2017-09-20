@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
+import {CourseService} from "../entities/course.service";
+import {Course} from "../entities/course";
 
 @Component({
     selector: 'courses',
@@ -7,12 +8,17 @@ import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database
     styleUrls: [ './courses.component.scss' ]
 })
 export class CoursesComponent {
-    courseList: FirebaseListObservable<any>;
+    courseList: Course[];
 
     constructor(
-        private db: AngularFireDatabase
+        private courseService: CourseService
     ) {
-        this.courseList = db.list('/courses');
+        this.getCourses();
+    }
+
+
+    private getCourses(): void {
+        this.courseService.getCourses().subscribe(courses => this.courseList = courses);
     }
 
 }
