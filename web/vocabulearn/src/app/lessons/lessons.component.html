@@ -1,0 +1,16 @@
+<div *ngIf="course">
+    <h1>{{course.title}}</h1>
+    <h2>Lessons</h2>
+    <div class="list-group">
+        <a *ngFor="let lesson of lessonList"
+           routerLink=""
+           class="list-group-item list-group-item-action">
+            <span>{{lesson.title}}</span>
+        </a>
+        <a *ngIf="lessonList"
+           class="list-group-item list-group-item-action"
+           routerLink="/addLesson">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+</div>

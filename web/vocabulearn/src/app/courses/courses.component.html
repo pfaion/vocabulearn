@@ -1,13 +1,16 @@
 <h1>Courses</h1>
 <div class="list-group">
     <a *ngFor="let course of courseList"
-       routerLink="/course/{{course.$key}}"
+       routerLink="/lessons/{{course.$key}}/"
        class="list-group-item list-group-item-action">
         <span>{{course.title}}</span>
+        <a routerLink="/course/edit/{{course.$key}}">
+            <span class="pull-right glyphicon glyphicon-pencil"></span>
+        </a>
     </a>
     <a *ngIf="courseList"
        class="list-group-item list-group-item-action"
-       routerLink="/addCourse">
+       routerLink="/course/add">
         <span class="glyphicon glyphicon-plus"></span>
     </a>
 </div>

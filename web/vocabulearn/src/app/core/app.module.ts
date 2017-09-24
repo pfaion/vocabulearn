@@ -9,8 +9,10 @@ import {RouterModule} from "@angular/router";
 import {HomeComponent} from "../home/home.component";
 import {CoursesComponent} from "../courses/courses.component";
 import {CourseDetailsComponent} from "../courses/course-details.component";
-import {CourseService} from "../entities/course.service";
+import {CourseService} from "../courses/course.service";
 import {FormsModule} from "@angular/forms";
+import {LessonsComponent} from "../lessons/lessons.component";
+import {LessonService} from "../lessons/lesson.service";
 
 @NgModule({
     imports: [
@@ -26,17 +28,24 @@ import {FormsModule} from "@angular/forms";
             },
             { path: 'home', component: HomeComponent },
             { path: 'courses', component: CoursesComponent },
-            { path: 'course/:key', component: CourseDetailsComponent },
-            { path: 'addCourse', component: CourseDetailsComponent }
+            { path: 'course/edit/:key', component: CourseDetailsComponent },
+            { path: 'course/add', component: CourseDetailsComponent },
+            { path: 'lessons/:courseKey', component: LessonsComponent },
+            { path: 'lesson/add/:courseKey', component: LessonsComponent },
+            { path: 'lesson/edit/:key', component: LessonsComponent }
         ])
     ],
     declarations: [
         AppComponent,
         HomeComponent,
         CoursesComponent,
-        CourseDetailsComponent
+        CourseDetailsComponent,
+        LessonsComponent
     ],
-    providers: [CourseService],
+    providers: [
+        CourseService,
+        LessonService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
-import {Course} from "../entities/course";
-import {CourseService} from "../entities/course.service";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {Course} from "./course";
+import {CourseService} from "./course.service";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import 'rxjs/add/operator/switchMap';
 import {Location} from "@angular/common";
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -24,22 +25,31 @@ export class CourseDetailsComponent implements OnInit{
     constructor(
         private courseService: CourseService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
-        this.route.paramMap
-            .switchMap((params: ParamMap) => this.courseService.getCourse(params.get('key')))
-            .subscribe(
-                course => {
+
+        Observable.combineLatest(this.route.paramMap, this.route.url).subscribe(latestValues => {
+            const [paramMap, url] = latestValues;
+            let pathList = url.map(segment => segment.path);
+
+            if(pathList.includes('add')) {
+                this.mode = this.modes.ADD;
+                this.course = new Course();
+
+            } else if(pathList.includes('edit')) {
+                this.mode = this.modes.EDIT;
+                const courseKey = paramMap.get('key');
+                this.courseService.getCourse(courseKey).subscribe(course => {
+                    if(!course.$exists()) {
+                        this.router.navigateByUrl('/courses');
+                    }
                     this.course = course;
-                    this.mode = this.modes.EDIT;
-                },
-                err => {
-                    this.course = new Course();
-                    this.mode = this.modes.ADD;
-                }
-            );
+                });
+            }
+        });
     }
 
     save(): void {

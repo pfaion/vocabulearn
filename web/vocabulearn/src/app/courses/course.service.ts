@@ -13,13 +13,11 @@ export class CourseService {
     ){}
 
     getCourses(): FirebaseListObservable<Course[]> {
-        return this.db.list('/courses');
+        const ref = `/courses`;
+        return this.db.list(ref);
     }
 
     getCourse(key: string) : Observable<Course> {
-        if(!key) {
-            return Observable.throw("Empty");
-        }
         const ref = `/courses/${key}`;
         return this.db.object(ref);
     }
@@ -30,7 +28,8 @@ export class CourseService {
     }
 
     add(course: Course): void {
-        this.db.list('/courses').push(course);
+        const course_ref = `/courses`;
+        this.db.list(course_ref).push(course);
     }
 
     delete(course: Course): void {
