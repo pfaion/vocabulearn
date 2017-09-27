@@ -1,4 +1,8 @@
 export class Lesson {
-    $key: string;
     title: string;
+
+    courseKey: string;
+
+    $key: string;
+    $exists: () => boolean;
 }

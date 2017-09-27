@@ -27,4 +27,28 @@ export class LessonService {
                 );
             });
     }
+
+    getLesson(lessonKey: string): Observable<Lesson> {
+        const ref = `/lessons/${lessonKey}`;
+        return this.db.object(ref);
+    }
+
+    update(lesson: Lesson): void {
+        const ref = `/lessons/${lesson.$key}`;
+        this.db.object(ref).update(lesson);
+    }
+
+    add(lesson: Lesson): void {
+        const lesson_ref = `/lessons`;
+        let newKey = this.db.list(lesson_ref).push(lesson).key;
+        const courseIndex = `/courses/${lesson.courseKey}/lessons/`;
+        this.db.list(courseIndex).set(newKey, true);
+    }
+
+    delete(lesson: Lesson): void {
+        const ref = `/lessons/${lesson.$key}`;
+        this.db.object(ref).remove();
+        const courseIndex = `/courses/${lesson.courseKey}/lessons/`;
+        this.db.list(courseIndex).set(lesson.$key, null);
+    }
 }

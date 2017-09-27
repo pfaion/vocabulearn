@@ -13,6 +13,7 @@ import {CourseService} from "../courses/course.service";
 import {FormsModule} from "@angular/forms";
 import {LessonsComponent} from "../lessons/lessons.component";
 import {LessonService} from "../lessons/lesson.service";
+import {LessonDetailsComponent} from "../lessons/lesson-details.component";
 
 @NgModule({
     imports: [
@@ -31,8 +32,8 @@ import {LessonService} from "../lessons/lesson.service";
             { path: 'course/edit/:key', component: CourseDetailsComponent },
             { path: 'course/add', component: CourseDetailsComponent },
             { path: 'lessons/:courseKey', component: LessonsComponent },
-            { path: 'lesson/add/:courseKey', component: LessonsComponent },
-            { path: 'lesson/edit/:key', component: LessonsComponent }
+            { path: 'lesson/add/:courseKey', component: LessonDetailsComponent },
+            { path: 'lesson/edit/:key', component: LessonDetailsComponent }
         ])
     ],
     declarations: [
@@ -40,7 +41,8 @@ import {LessonService} from "../lessons/lesson.service";
         HomeComponent,
         CoursesComponent,
         CourseDetailsComponent,
-        LessonsComponent
+        LessonsComponent,
+        LessonDetailsComponent
     ],
     providers: [
         CourseService,

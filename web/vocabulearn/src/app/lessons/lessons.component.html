@@ -6,10 +6,12 @@
            routerLink=""
            class="list-group-item list-group-item-action">
             <span>{{lesson.title}}</span>
+            <a routerLink="/lesson/edit/{{lesson.$key}}">
+                <span class="pull-right glyphicon glyphicon-pencil"></span>
+            </a>
         </a>
-        <a *ngIf="lessonList"
-           class="list-group-item list-group-item-action"
-           routerLink="/addLesson">
+        <a class="list-group-item list-group-item-action"
+           routerLink="/lesson/add/{{course.$key}}">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
     </div>

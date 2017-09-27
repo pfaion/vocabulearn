@@ -1,21 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
-import {Course} from "./course";
-import {CourseService} from "./course.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import 'rxjs/add/operator/switchMap';
 import {Location} from "@angular/common";
 import {Observable} from "rxjs/Observable";
+import {Lesson} from "./lesson";
+import {LessonService} from "./lesson.service";
 
 
 @Component({
-    selector: 'course-details',
-    templateUrl: './course-details.component.html',
-    styleUrls: [ './course-details.component.scss' ]
+    selector: 'lesson-details',
+    templateUrl: './lesson-details.component.html',
+    styleUrls: [ './lesson-details.component.scss' ]
 })
-export class CourseDetailsComponent implements OnInit{
+export class LessonDetailsComponent implements OnInit{
 
-    course: Course;
+    lesson: Lesson;
     modes = {
         EDIT: 0,
         ADD: 1
@@ -23,7 +23,7 @@ export class CourseDetailsComponent implements OnInit{
     mode;
 
     constructor(
-        private courseService: CourseService,
+        private lessonService: LessonService,
         private route: ActivatedRoute,
         private location: Location,
         private router: Router
@@ -37,33 +37,33 @@ export class CourseDetailsComponent implements OnInit{
 
             if(pathList.includes('add')) {
                 this.mode = this.modes.ADD;
-                this.course = new Course();
-
+                this.lesson = new Lesson();
+                this.lesson.courseKey= paramMap.get('courseKey');
             } else if(pathList.includes('edit')) {
                 this.mode = this.modes.EDIT;
-                const courseKey = paramMap.get('key');
-                this.courseService.getCourse(courseKey).subscribe(course => {
-                    if(!course.$exists()) {
+                const lessonKey = paramMap.get('key');
+                this.lessonService.getLesson(lessonKey).subscribe(lesson => {
+                    if(!lesson.$exists()) {
                         this.goBack();
                     }
-                    this.course = course;
+                    this.lesson = lesson;
                 });
             }
         });
     }
 
     save(): void {
-        this.courseService.update(this.course);
+        this.lessonService.update(this.lesson);
         this.goBack();
     }
 
     add(): void {
-        this.courseService.add(this.course);
+        this.lessonService.add(this.lesson);
         this.goBack();
     }
 
     delete(): void {
-        this.courseService.delete(this.course);
+        this.lessonService.delete(this.lesson);
         this.goBack();
     }
 
